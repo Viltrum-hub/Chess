@@ -20,7 +20,7 @@
   document.addEventListener('click', event => {
     if (!event.target.closest('.header-inner')) closeMenu();
   });
-  window.matchMedia('(min-width:741px)').addEventListener('change', event => {
+  window.matchMedia('(min-width:901px)').addEventListener('change', event => {
     if (event.matches) closeMenu();
   });
   const reading = document.querySelector('[data-reading]');
