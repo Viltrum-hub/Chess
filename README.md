@@ -28,3 +28,7 @@ Portada cinematográfica y tres imágenes originales generadas con el generador 
 
 ## Identidad tecnológica
 Diseño oscuro inspirado en `Viltrum-hub/Sitio-Finanzas` y composición cinematográfica inspirada en `Viltrum-hub/Bosques`. Acentos cian/violeta, retículas discretas, tipografía Space Grotesk/Inter con alternativas locales. Cinco nuevas imágenes originales generadas: colaboración científica, estructura molecular, automatización de laboratorio, salud digital y consulta bibliográfica. Los textos de investigación se conservan y todas las páginas siguen siendo independientes.
+
+
+## Ampliación internacional
+Revisión narrativa de 2020–2024, con indicadores mundiales y casos regulatorios de EE. UU. y Reino Unido. Fuentes complementarias: OMS (2021, 2024), FDA (2023), MHRA (2023). Consulta: 2026-10-05. Se conserva el texto original y sus notas; el antecedente de 2008 se identifica como histórico. No presenta resultados clínicos propios ni revisión sistemática.
