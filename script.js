@@ -23,18 +23,6 @@
   window.matchMedia('(min-width:901px)').addEventListener('change', event => {
     if (event.matches) closeMenu();
   });
-  const reading = document.querySelector('[data-reading]');
-  const setReading = enabled => {
-    document.documentElement.classList.toggle('large-reading', enabled);
-    reading.setAttribute('aria-pressed', String(enabled));
-    reading.setAttribute('aria-label', enabled ? 'Restaurar tamaño de texto' : 'Ampliar texto para lectura');
-  };
-  try { setReading(localStorage.getItem('biomed-reading') === 'large'); } catch (_) { /* Storage may be unavailable. */ }
-  reading.addEventListener('click', () => {
-    const enabled = reading.getAttribute('aria-pressed') !== 'true';
-    setReading(enabled);
-    try { localStorage.setItem('biomed-reading', enabled ? 'large' : 'normal'); } catch (_) { /* Reading remains functional. */ }
-  });
   const progress = document.querySelector('.reading-progress');
   let scheduled = false;
   const updateProgress = () => {
@@ -66,4 +54,81 @@
       observer.observe(section);
     }
   });
+})();
+
+// A quiet network of particles behind the page; never captures pointer input.
+(() => {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'ambient-particles';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.prepend(canvas);
+  const context = canvas.getContext('2d');
+  if (!context) { canvas.remove(); return; }
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let width = 0, height = 0, particles = [], frame = 0, previous = 0;
+  const draw = (step = 0) => {
+    context.clearRect(0, 0, width, height);
+    for (const p of particles) {
+      p.x = (p.x + p.vx * step + width) % width;
+      p.y = (p.y + p.vy * step + height) % height;
+      context.fillStyle = p.color;
+      context.beginPath();
+      context.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      context.fill();
+    }
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        if (distance >= 120) continue;
+        context.strokeStyle = `rgba(84,225,236,${0.12 * (1 - distance / 120)})`;
+        context.lineWidth = 0.7;
+        context.beginPath();
+        context.moveTo(a.x, a.y);
+        context.lineTo(b.x, b.y);
+        context.stroke();
+      }
+    }
+  };
+  const tick = time => {
+    frame = 0;
+    if (document.hidden || motion.matches) return;
+    if (time - previous >= 33) {
+      const step = previous ? Math.min((time - previous) / 33, 2) : 1;
+      previous = time;
+      draw(step);
+    }
+    frame = window.requestAnimationFrame(tick);
+  };
+  const resume = () => {
+    window.cancelAnimationFrame(frame);
+    frame = 0;
+    previous = 0;
+    draw();
+    if (!document.hidden && !motion.matches) frame = window.requestAnimationFrame(tick);
+  };
+  const resize = () => {
+    width = Math.max(1, window.innerWidth);
+    height = Math.max(1, window.innerHeight);
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = Math.min(width < 740 ? 30 : 65, Math.max(20, Math.round(width * height / 22000)));
+    particles = Array.from({length: count}, (_, i) => ({
+      x: Math.random() * width, y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      radius: 0.8 + Math.random() * 1.3,
+      color: i % 4 === 0 ? 'rgba(161,138,251,0.5)' : 'rgba(84,225,236,0.45)'
+    }));
+    resume();
+  };
+  let resizeFrame = 0;
+  window.addEventListener('resize', () => {
+    window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(resize);
+  }, {passive: true});
+  document.addEventListener('visibilitychange', resume);
+  motion.addEventListener('change', resume);
+  resize();
 })();
