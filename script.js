@@ -1,7 +1,7 @@
 const PIECES={w:{k:'♔',q:'♕',r:'♖',b:'♗',n:'♘',p:'♙'},b:{k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'}};
 const VALUE={p:100,n:320,b:330,r:500,q:900,k:20000};
 const boardEl=document.querySelector('#board'), moveList=document.querySelector('#moveList'), coach=document.querySelector('#coachText'), thinking=document.querySelector('#thinking'), turnBadge=document.querySelector('#turnBadge'), gameOver=document.querySelector('#gameOver');
-let game=new Chess(), human='w', ai='b', flipped=false, selected=null, legal=[], lastMove=null, locked=false, recorded=false, startedAt=Date.now();
+let game=new Chess(), human='w', ai='b', flipped=false, selected=null, legal=[], lastMove=null, locked=false, recorded=false, startedAt=Date.now(), aiTimer=null;
 const RECORD_KEY='chess-ai-records-v1';
 
 function squareOrder(){
@@ -13,7 +13,7 @@ function render(){
   const order=squareOrder();
   order.forEach((sq,i)=>{
     const f='abcdefgh'.indexOf(sq[0]),r=+sq[1], light=(f+r)%2===1;
-    const el=document.createElement('div'); el.className='square '+(light?'light':'dark'); el.dataset.square=sq;
+    const el=document.createElement('button'); el.type='button';el.setAttribute('aria-label',sq+(game.get(sq)?' '+(game.get(sq).color==='w'?'blancas ':'negras ')+game.get(sq).type:' vacía')); el.className='square '+(light?'light':'dark'); el.dataset.square=sq;
     if(selected===sq) el.classList.add('selected');
     if(lastMove&&(lastMove.from===sq||lastMove.to===sq)) el.classList.add('last');
     const lm=legal.find(m=>m.to===sq); if(lm) el.classList.add(game.get(sq)?'capture':'move');
@@ -42,8 +42,9 @@ function feedback(m){
   if(m.flags.includes('k')||m.flags.includes('q'))return 'Bien: el enroque mejora la seguridad de tu rey.';
   return 'Jugada realizada. Antes de la respuesta rival, revisa amenazas y piezas sin defender.';
 }
-function afterHuman(){if(checkEnd())return;locked=true;thinking.classList.add('show');setTimeout(aiMove,280+Math.random()*420)}
+function afterHuman(){if(checkEnd())return;locked=true;thinking.classList.add('show');updateStatus();aiTimer=setTimeout(aiMove,280+Math.random()*420)}
 function aiMove(){
+  aiTimer=null;if(recorded||game.game_over()||game.turn()!==ai)return;
   const level=+document.querySelector('#difficulty').value, moves=game.moves({verbose:true});
   if(!moves.length){locked=false;thinking.classList.remove('show');checkEnd();return}
   let chosen;
@@ -96,12 +97,13 @@ function checkEnd(){
   saveRecord(title==='¡Victoria!'?'win':title==='Derrota'?'loss':'draw',text);return true;
 }
 function newGame(){
+  clearTimeout(aiTimer);aiTimer=null;thinking.classList.remove('show');
   game=new Chess();selected=null;legal=[];lastMove=null;locked=false;recorded=false;startedAt=Date.now();gameOver.classList.add('hidden');
   const choice=document.querySelector('#color').value;human=choice==='random'?(Math.random()<.5?'w':'b'):choice;ai=human==='w'?'b':'w';flipped=human==='b';
   document.querySelector('#sideLabel').textContent=human==='w'?'Blancas':'Negras';
   const labels=['','Principiante','Fácil','Intermedio','Difícil','Experto','Maestro'];document.querySelector('#aiLabel').textContent='Nivel '+labels[+document.querySelector('#difficulty').value].toLowerCase();
   coach.textContent='Nueva partida. Desarrolla tus piezas, controla el centro y protege a tu rey.';render();
-  if(ai==='w'){locked=true;thinking.classList.add('show');setTimeout(aiMove,450)}
+  if(ai==='w'){locked=true;thinking.classList.add('show');updateStatus();aiTimer=setTimeout(aiMove,450)}
 }
 function hint(){
   if(locked||game.turn()!==human||game.game_over())return;
@@ -111,17 +113,17 @@ function hint(){
   coach.textContent='Pista: considera mover '+best.from.toUpperCase()+' → '+best.to.toUpperCase()+'. Busca qué mejora o qué amenaza crea.';
 }
 function undo(){
-  if(locked)return;let n=0;if(game.history().length){game.undo();n++}if(game.turn()!==human&&game.history().length){game.undo();n++}else if(n&&game.turn()===ai&&game.history().length){game.undo()}
+  if(locked||recorded)return;let n=0;if(game.history().length){game.undo();n++}if(game.turn()!==human&&game.history().length){game.undo();n++}else if(n&&game.turn()===ai&&game.history().length){game.undo()}
   selected=null;legal=[];lastMove=null;coach.textContent='Movimiento deshecho. Intenta encontrar una alternativa más activa.';render();
 }
 document.querySelector('#newGame').onclick=newGame;document.querySelector('#playAgain').onclick=newGame;document.querySelector('#hint').onclick=hint;document.querySelector('#undo').onclick=undo;
 document.querySelector('#flip').onclick=()=>{flipped=!flipped;render()};
 document.querySelector('#difficulty').onchange=()=>{const labels=['','Principiante','Fácil','Intermedio','Difícil','Experto','Maestro'];document.querySelector('#aiLabel').textContent='Nivel '+labels[+document.querySelector('#difficulty').value].toLowerCase()};
-function getRecords(){try{return JSON.parse(localStorage.getItem(RECORD_KEY)||'[]')}catch(e){return[]}}
+function getRecords(){try{const records=JSON.parse(localStorage.getItem(RECORD_KEY)||'[]');return Array.isArray(records)?records.filter(r=>r&&['win','loss','draw'].includes(r.result)):[]}catch(e){return[]}}
 function saveRecord(result,reason){
   if(recorded)return;recorded=true;
   const records=getRecords();records.unshift({result,reason,date:new Date().toISOString(),color:human,level:+document.querySelector('#difficulty').value,moves:game.history().length,duration:Math.round((Date.now()-startedAt)/1000)});
-  localStorage.setItem(RECORD_KEY,JSON.stringify(records.slice(0,50)));renderRecords();
+  try{localStorage.setItem(RECORD_KEY,JSON.stringify(records.slice(0,50)))}catch{coach.textContent='No se pudo guardar esta partida. Comprueba si el navegador permite almacenamiento local.'}renderRecords();
 }
 function renderRecords(){
   const records=getRecords(), wins=records.filter(r=>r.result==='win').length, losses=records.filter(r=>r.result==='loss').length, draws=records.filter(r=>r.result==='draw').length;
@@ -130,6 +132,6 @@ function renderRecords(){
   const names=['','Principiante','Fácil','Intermedio','Difícil','Experto','Maestro'];
   el.innerHTML=records.map(r=>'<div class="record-item"><span class="record-result '+r.result+'">'+(r.result==='win'?'Victoria':r.result==='loss'?'Derrota':'Tablas')+'</span><span class="record-meta">'+names[r.level]+' · '+(r.color==='w'?'Blancas':'Negras')+' · '+r.moves+' mov.</span><span class="record-date">'+new Date(r.date).toLocaleDateString()+'</span></div>').join('');
 }
-document.querySelector('#resign').onclick=()=>{if(game.game_over()||recorded)return;document.querySelector('#resultTitle').textContent='Te has rendido';document.querySelector('#resultText').textContent='Partida terminada. Revisa el historial e inténtalo de nuevo.';gameOver.classList.remove('hidden');locked=true;saveRecord('loss','Rendición')};
+document.querySelector('#resign').onclick=()=>{if(game.game_over()||recorded)return;clearTimeout(aiTimer);aiTimer=null;thinking.classList.remove('show');document.querySelector('#resultTitle').textContent='Te has rendido';document.querySelector('#resultText').textContent='Partida terminada. Revisa el historial e inténtalo de nuevo.';gameOver.classList.remove('hidden');locked=true;saveRecord('loss','Rendición')};
 document.querySelector('#clearRecords').onclick=()=>{if(confirm('¿Borrar todo tu registro de partidas?')){localStorage.removeItem(RECORD_KEY);renderRecords()}};
 renderRecords();newGame();
