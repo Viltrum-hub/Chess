@@ -32,3 +32,18 @@ Diseño oscuro inspirado en `Viltrum-hub/Sitio-Finanzas` y composición cinemato
 
 ## Ampliación internacional
 Revisión narrativa de 2020–2024, con indicadores mundiales y casos regulatorios de EE. UU. y Reino Unido. Fuentes complementarias: OMS (2021, 2024), FDA (2023), MHRA (2023). Consulta: 2026-10-05. Se conserva el texto original y sus notas; el antecedente de 2008 se identifica como histórico. No presenta resultados clínicos propios ni revisión sistemática.
+
+## Diseño móvil e imágenes
+Menú táctil con desplazamiento, tarjetas en una columna para teléfonos, dos en tabletas, tipografía legible y objetivos de toque de al menos 44 px. Encabezados conservados; imágenes internas propias por tema. Partículas decorativas con pausa en segundo plano y respeto a movimiento reducido.
+
+### Imágenes generadas
+Ocho imágenes creadas con la herramienta integrada de generación, en `assets/` con versiones WebP de 1024 y 640 px. Especificación común: escena horizontal conceptual, estética tecnológica azul marino, cian y violeta, sin texto ni logotipos. Temas de los prompts:
+- biofarmacos: vial de medicamento biotecnológico y estructuras moleculares.
+- diagnostico: escáner de patología digital y lámina de muestra.
+- atencion-medica: consulta con médico, paciente y tableta.
+- investigacion-clinica: manos con guantes insertando muestras en equipo de análisis.
+- anticuerpos: representación conceptual de proteínas en forma de Y.
+- genomica: investigadora frente a visualizaciones abstractas de datos genómicos.
+- hematologia: representación conceptual de glóbulos rojos en un vaso sanguíneo.
+- acceso-salud: consulta médica remota desde una clínica.
+Las imágenes ilustran temas; no representan evidencia clínica ni instalaciones reales del proyecto.
