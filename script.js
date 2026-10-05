@@ -35,7 +35,6 @@
     setReading(enabled);
     try { localStorage.setItem('biomed-reading', enabled ? 'large' : 'normal'); } catch (_) { /* Reading remains functional. */ }
   });
-  document.querySelectorAll('[data-print]').forEach(button => button.addEventListener('click', () => window.print()));
   const progress = document.querySelector('.reading-progress');
   let scheduled = false;
   const updateProgress = () => {
