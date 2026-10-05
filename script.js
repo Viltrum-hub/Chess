@@ -49,3 +49,22 @@
   window.addEventListener('resize', updateProgress);
   updateProgress();
 })();
+
+// Progressive enhancement: content stays visible without JS or observer support.
+(() => {
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.remove('reveal-pending');
+      observer.unobserve(entry.target);
+    });
+  }, {rootMargin: '0px 0px 40px 0px', threshold: 0.05});
+  document.querySelectorAll('[data-reveal]').forEach(section => {
+    const box = section.getBoundingClientRect();
+    if (box.top > window.innerHeight && box.height < window.innerHeight * 2) {
+      section.classList.add('reveal-ready', 'reveal-pending');
+      observer.observe(section);
+    }
+  });
+})();

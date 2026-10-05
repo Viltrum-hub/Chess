@@ -22,3 +22,6 @@ Los resultados son hallazgos del análisis documental, no mediciones propias. Lo
 Menú móvil con estado accesible y cierre con Escape, navegación por teclado, ampliación de texto persistente, indicadores de lectura, acordeones nativos, impresión y movimiento reducido. Ilustración conceptual de ADN en SVG local.
 
 La versión anterior de ajedrez se conserva en la rama `respaldo-ajedrez-2026-10-05` y en el historial de Git.
+
+## Diseño premium
+Portada cinematográfica y tres imágenes originales generadas con el generador integrado de imágenes: ADN translúcido en entorno teal, laboratorio con microscopio y universo celular conceptual. Las imágenes son ilustraciones, no evidencia de un laboratorio o experimento real. Versiones WebP responsivas de 1536 y 768 píxeles. Los textos de investigación originales se mantienen.
