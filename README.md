@@ -1,16 +1,24 @@
-# Chess AI ♞
+# Biomed — Biotecnología y medicina
 
-Juego de ajedrez en español para practicar contra una IA local, en móvil y escritorio.
+Sitio académico estático en español basado en «Los avances logrados en biotecnología».
 
-## Funciones
-- Reglas legales con chess.js (incluido en `vendor/`, con su licencia en el encabezado).
-- Seis dificultades: Principiante, Fácil, Intermedio, Difícil, Experto y Maestro. Las cifras Elo de la interfaz son orientativas y no están calibradas.
-- Blancas, negras o color aleatorio; pistas, deshacer, girar, reiniciar y rendirse.
-- Tablero con ocho filas y columnas iguales, independientes del contenido.
-- Registro de las últimas 50 partidas y estadísticas de resultados en este navegador.
-- Ocho lecciones con tutoriales de tres pasos y ejercicios interactivos: torre, alfil, caballo, peones, centro, enroque, ataque doble y mate.
-- Progreso de lecciones guardado en este navegador, independiente del registro de partidas.
+## Páginas
+- Inicio: `index.html`
+- Nosotros: `nosotros.html`
+- Marco teórico: `marco-teorico.html`
+- Resultados: `resultados.html`
+- Impactos: `impactos.html`
+- Referencias: `referencias.html`
 
-Abre `index.html` o publica la raíz de `main` con GitHub Pages. No necesita compilación ni servidor.
+Cada página es un documento HTML independiente. Todas comparten navegación, estilos y JavaScript. Las rutas son relativas para funcionar dentro de GitHub Pages `/Chess/`.
 
-La IA utiliza minimax y poda alfa-beta; todavía no es Stockfish. El registro y el progreso se guardan con localStorage: no se sincronizan entre dispositivos y se eliminan al borrar los datos del sitio.
+## Uso
+Abrir `index.html` o servir esta carpeta con `python3 -m http.server 8000`. No hay compilación, dependencias ni recursos externos. Para publicar en GitHub Pages, seleccionar `main` y `/ (root)` en Settings → Pages.
+
+## Contenido
+Los resultados son hallazgos del análisis documental, no mediciones propias. Los tres párrafos originales están distribuidos entre Marco teórico e Impactos. Referencias conserva íntegramente las dos notas originales. Las demás secciones sintetizan su contenido y explican el propósito del proyecto.
+
+## Accesibilidad e interacción
+Menú móvil con estado accesible y cierre con Escape, navegación por teclado, ampliación de texto persistente, indicadores de lectura, acordeones nativos, impresión y movimiento reducido. Ilustración conceptual de ADN en SVG local.
+
+La versión anterior de ajedrez se conserva en la rama `respaldo-ajedrez-2026-10-05` y en el historial de Git.
