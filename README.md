@@ -47,3 +47,6 @@ Ocho imágenes creadas con la herramienta integrada de generación, en `assets/`
 - hematologia: representación conceptual de glóbulos rojos en un vaso sanguíneo.
 - acceso-salud: consulta médica remota desde una clínica.
 Las imágenes ilustran temas; no representan evidencia clínica ni instalaciones reales del proyecto.
+
+### Banners finales
+Seis imágenes adicionales generadas para los enlaces de capítulo, en assets/footer-*.webp: planificación científica, microfluídica, biobanco, atención hospitalaria, fuentes científicas y cultivos celulares. Prompts: fotografías o representaciones conceptuales horizontales con iluminación cian y violeta, sin etiquetas ni logos. Se actualizaron las versiones en enlaces internos para solicitar el HTML vigente.

@@ -1,3 +1,6 @@
+// Retire controls from previously cached page markup.
+document.querySelectorAll('[data-reading], .reading-toggle').forEach(control => control.remove());
+document.documentElement.classList.remove('large-reading');
 (() => {
   'use strict';
   const toggle = document.querySelector('.menu-toggle');
