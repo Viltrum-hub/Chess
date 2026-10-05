@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0e14">
+  <title>Chess AI · Entrena contra la máquina</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Chess AI"><span class="brand-mark">♞</span><span>CHESS <b>AI</b></span></a>
+      <div class="status-pill"><span class="dot"></span><span id="topStatus">Entrenamiento listo</span></div>
+    </header>
+
+    <section class="game-layout">
+      <div class="board-column">
+        <div class="player-card opponent">
+          <div class="avatar">♚</div><div><strong>Chess AI</strong><small id="aiLabel">Nivel intermedio</small></div>
+          <div class="thinking" id="thinking">Pensando…</div>
+        </div>
+
+        <div class="board-shell">
+          <div id="board" class="board" aria-label="Tablero de ajedrez"></div>
+        </div>
+
+        <div class="player-card">
+          <div class="avatar user">♙</div><div><strong>Tú</strong><small id="sideLabel">Blancas</small></div>
+          <div class="turn-badge" id="turnBadge">Tu turno</div>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div>
+          <p class="eyebrow">CENTRO DE ENTRENAMIENTO</p>
+          <h1>Piensa. Juega.<br><em>Mejora.</em></h1>
+          <p class="intro">Practica contra una IA ajustable. Las jugadas legales se iluminan y puedes pedir una pista cuando te atasques.</p>
+        </div>
+
+        <div class="controls">
+          <label>Dificultad
+            <select id="difficulty">
+              <option value="1">Principiante · ~500</option>
+              <option value="2">Fácil · ~800</option>
+              <option value="3" selected>Intermedio · ~1200</option>
+              <option value="4">Difícil · ~1600</option>
+              <option value="5">Experto · ~2000</option>
+            </select>
+          </label>
+          <label>Jugar con
+            <select id="color">
+              <option value="w" selected>Blancas</option>
+              <option value="b">Negras</option>
+              <option value="random">Aleatorio</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="newGame">Nueva partida</button>
+          <button id="hint">💡 Pista</button>
+          <button id="undo">↶ Deshacer</button>
+          <button id="flip">⇅ Girar</button>
+        </div>
+
+        <section class="coach">
+          <div class="coach-head"><span>♞</span><div><strong>Entrenador</strong><small>Análisis rápido</small></div></div>
+          <p id="coachText">Desarrolla tus piezas, controla el centro y protege a tu rey. ¡Haz tu primera jugada!</p>
+        </section>
+
+        <section class="moves">
+          <div class="section-title"><span>Historial</span><button id="resign" class="text-btn">Rendirse</button></div>
+          <div id="moveList" class="move-list"><span class="empty">La partida aún no ha comenzado.</span></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="gameOver"><div class="modal-card"><span class="result-icon">♔</span><h2 id="resultTitle">Fin de partida</h2><p id="resultText"></p><button class="primary" id="playAgain">Jugar de nuevo</button></div></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chess.js@0.10.3/chess.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
