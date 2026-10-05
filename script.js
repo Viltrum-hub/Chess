@@ -1,7 +1,8 @@
 const PIECES={w:{k:'♔',q:'♕',r:'♖',b:'♗',n:'♘',p:'♙'},b:{k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'}};
 const VALUE={p:100,n:320,b:330,r:500,q:900,k:20000};
 const boardEl=document.querySelector('#board'), moveList=document.querySelector('#moveList'), coach=document.querySelector('#coachText'), thinking=document.querySelector('#thinking'), turnBadge=document.querySelector('#turnBadge'), gameOver=document.querySelector('#gameOver');
-let game=new Chess(), human='w', ai='b', flipped=false, selected=null, legal=[], lastMove=null, locked=false;
+let game=new Chess(), human='w', ai='b', flipped=false, selected=null, legal=[], lastMove=null, locked=false, recorded=false, startedAt=Date.now();
+const RECORD_KEY='chess-ai-records-v1';
 
 function squareOrder(){
   const files=flipped?'hgfedcba':'abcdefgh', ranks=flipped?'12345678':'87654321', out=[];
@@ -48,11 +49,26 @@ function aiMove(){
   let chosen;
   if(level===1) chosen=moves[Math.floor(Math.random()*moves.length)];
   else{
-    const scored=moves.map(m=>{game.move(m);let s=evaluate(ai); if(game.in_checkmate())s=999999; else if(game.in_check())s+=45;game.undo();s+=(Math.random()*Math.max(5,130-level*24));return{m,s}}).sort((a,b)=>b.s-a.s);
-    const pool=level===2?Math.min(5,scored.length):level===3?Math.min(3,scored.length):level===4?Math.min(2,scored.length):1;
+    const depth=level>=6?3:level>=4?2:1;
+    const scored=moves.map(m=>{game.move(m);let s=-minimax(depth-1,human,-Infinity,Infinity);game.undo();s+=Math.random()*Math.max(2,80-level*12);return{m,s}}).sort((a,b)=>b.s-a.s);
+    const pool=level===2?Math.min(4,scored.length):level===3?Math.min(2,scored.length):1;
     chosen=scored[Math.floor(Math.random()*pool)].m;
   }
   const m=game.move({from:chosen.from,to:chosen.to,promotion:chosen.promotion||'q'});lastMove=m;locked=false;thinking.classList.remove('show');coach.textContent=aiComment(m);render();checkEnd();
+}
+function minimax(depth,side,alpha,beta){
+  if(game.in_checkmate())return game.turn()===side?-999999:999999;
+  if(depth<=0||game.game_over())return evaluatePosition(side);
+  const maximizing=game.turn()===side;let best=maximizing?-Infinity:Infinity;
+  const moves=game.moves({verbose:true}).sort((a,b)=>(VALUE[b.captured]||0)-(VALUE[a.captured]||0));
+  for(const m of moves){game.move(m);const v=minimax(depth-1,side,alpha,beta);game.undo();if(maximizing){best=Math.max(best,v);alpha=Math.max(alpha,v)}else{best=Math.min(best,v);beta=Math.min(beta,v)}if(beta<=alpha)break}
+  return best;
+}
+function evaluatePosition(side){
+  let total=evaluate(side), centers=['d4','e4','d5','e5'];
+  for(const sq of centers){const p=game.get(sq);if(p)total+=(p.color===side?18:-18)}
+  if(game.in_check())total+=(game.turn()===side?-35:35);
+  return total;
 }
 function evaluate(side){
   let total=0;
@@ -76,13 +92,14 @@ function checkEnd(){
   else if(game.in_stalemate())text='Ahogado: el jugador al turno no tiene jugadas legales.';
   else if(game.in_threefold_repetition())text='Tablas por triple repetición.';
   else if(game.insufficient_material())text='Tablas por material insuficiente.';
-  document.querySelector('#resultTitle').textContent=title;document.querySelector('#resultText').textContent=text;gameOver.classList.remove('hidden');return true;
+  document.querySelector('#resultTitle').textContent=title;document.querySelector('#resultText').textContent=text;gameOver.classList.remove('hidden');
+  saveRecord(title==='¡Victoria!'?'win':title==='Derrota'?'loss':'draw',text);return true;
 }
 function newGame(){
-  game=new Chess();selected=null;legal=[];lastMove=null;locked=false;gameOver.classList.add('hidden');
+  game=new Chess();selected=null;legal=[];lastMove=null;locked=false;recorded=false;startedAt=Date.now();gameOver.classList.add('hidden');
   const choice=document.querySelector('#color').value;human=choice==='random'?(Math.random()<.5?'w':'b'):choice;ai=human==='w'?'b':'w';flipped=human==='b';
   document.querySelector('#sideLabel').textContent=human==='w'?'Blancas':'Negras';
-  const labels=['','Principiante','Fácil','Intermedio','Difícil','Experto'];document.querySelector('#aiLabel').textContent='Nivel '+labels[+document.querySelector('#difficulty').value].toLowerCase();
+  const labels=['','Principiante','Fácil','Intermedio','Difícil','Experto','Maestro'];document.querySelector('#aiLabel').textContent='Nivel '+labels[+document.querySelector('#difficulty').value].toLowerCase();
   coach.textContent='Nueva partida. Desarrolla tus piezas, controla el centro y protege a tu rey.';render();
   if(ai==='w'){locked=true;thinking.classList.add('show');setTimeout(aiMove,450)}
 }
@@ -99,6 +116,20 @@ function undo(){
 }
 document.querySelector('#newGame').onclick=newGame;document.querySelector('#playAgain').onclick=newGame;document.querySelector('#hint').onclick=hint;document.querySelector('#undo').onclick=undo;
 document.querySelector('#flip').onclick=()=>{flipped=!flipped;render()};
-document.querySelector('#difficulty').onchange=()=>{const labels=['','Principiante','Fácil','Intermedio','Difícil','Experto'];document.querySelector('#aiLabel').textContent='Nivel '+labels[+document.querySelector('#difficulty').value].toLowerCase()};
-document.querySelector('#resign').onclick=()=>{if(game.game_over())return;document.querySelector('#resultTitle').textContent='Te has rendido';document.querySelector('#resultText').textContent='Partida terminada. Revisa el historial e inténtalo de nuevo.';gameOver.classList.remove('hidden');locked=true};
-newGame();
+document.querySelector('#difficulty').onchange=()=>{const labels=['','Principiante','Fácil','Intermedio','Difícil','Experto','Maestro'];document.querySelector('#aiLabel').textContent='Nivel '+labels[+document.querySelector('#difficulty').value].toLowerCase()};
+function getRecords(){try{return JSON.parse(localStorage.getItem(RECORD_KEY)||'[]')}catch(e){return[]}}
+function saveRecord(result,reason){
+  if(recorded)return;recorded=true;
+  const records=getRecords();records.unshift({result,reason,date:new Date().toISOString(),color:human,level:+document.querySelector('#difficulty').value,moves:game.history().length,duration:Math.round((Date.now()-startedAt)/1000)});
+  localStorage.setItem(RECORD_KEY,JSON.stringify(records.slice(0,50)));renderRecords();
+}
+function renderRecords(){
+  const records=getRecords(), wins=records.filter(r=>r.result==='win').length, losses=records.filter(r=>r.result==='loss').length, draws=records.filter(r=>r.result==='draw').length;
+  document.querySelector('#statGames').textContent=records.length;document.querySelector('#statWins').textContent=wins;document.querySelector('#statDraws').textContent=draws;document.querySelector('#statLosses').textContent=losses;
+  const el=document.querySelector('#recordList');if(!records.length){el.innerHTML='<span class="empty">Todavía no hay partidas guardadas.</span>';return}
+  const names=['','Principiante','Fácil','Intermedio','Difícil','Experto','Maestro'];
+  el.innerHTML=records.map(r=>'<div class="record-item"><span class="record-result '+r.result+'">'+(r.result==='win'?'Victoria':r.result==='loss'?'Derrota':'Tablas')+'</span><span class="record-meta">'+names[r.level]+' · '+(r.color==='w'?'Blancas':'Negras')+' · '+r.moves+' mov.</span><span class="record-date">'+new Date(r.date).toLocaleDateString()+'</span></div>').join('');
+}
+document.querySelector('#resign').onclick=()=>{if(game.game_over()||recorded)return;document.querySelector('#resultTitle').textContent='Te has rendido';document.querySelector('#resultText').textContent='Partida terminada. Revisa el historial e inténtalo de nuevo.';gameOver.classList.remove('hidden');locked=true;saveRecord('loss','Rendición')};
+document.querySelector('#clearRecords').onclick=()=>{if(confirm('¿Borrar todo tu registro de partidas?')){localStorage.removeItem(RECORD_KEY);renderRecords()}};
+renderRecords();newGame();
