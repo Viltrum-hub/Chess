@@ -1,4 +1,3 @@
-// Retire controls from previously cached page markup.
 document.querySelectorAll('[data-reading], .reading-toggle').forEach(control => control.remove());
 document.documentElement.classList.remove('large-reading');
 (() => {
@@ -39,8 +38,6 @@ document.documentElement.classList.remove('large-reading');
   window.addEventListener('resize', updateProgress);
   updateProgress();
 })();
-
-// Progressive enhancement: content stays visible without JS or observer support.
 (() => {
   if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const observer = new IntersectionObserver(entries => {
@@ -58,8 +55,6 @@ document.documentElement.classList.remove('large-reading');
     }
   });
 })();
-
-// A quiet network of particles behind the page; never captures pointer input.
 (() => {
   const canvas = document.createElement('canvas');
   canvas.className = 'ambient-particles';
@@ -134,4 +129,35 @@ document.documentElement.classList.remove('large-reading');
   document.addEventListener('visibilitychange', resume);
   motion.addEventListener('change', resume);
   resize();
+})();
+
+(() => {
+  const dashboard = document.querySelector('.research-dashboard');
+  if (!dashboard) return;
+  const tablist = dashboard.querySelector('[role="tablist"]');
+  const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  const activate = (tab, moveFocus = false) => {
+    tabs.forEach(item => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+    });
+    if (moveFocus) tab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', event => {
+      let target;
+      if (event.key === 'ArrowRight') target = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') target = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') target = 0;
+      if (event.key === 'End') target = tabs.length - 1;
+      if (target === undefined) return;
+      event.preventDefault();
+      activate(tabs[target], true);
+    });
+  });
+  activate(tabs[0]);
+  tablist.hidden = false;
 })();
