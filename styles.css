@@ -303,3 +303,7 @@ main>*{min-width:0}.card,.scope-grid>div,.case-grid>article,.finding>div,.sectio
 .biomed-identity-item>p:last-child{margin-bottom:0}
 @media(max-width:1000px){.biomed-identity-item{padding-right:26px}.biomed-identity-item+article{padding-left:26px}.biomed-logo-display{gap:16px}.biomed-identity-symbol{width:75px;height:75px;border-radius:16px;padding:12px}.biomed-identity-wordmark{font-size:3rem}.biomed-slogan-display p{font-size:2rem!important}}
 @media(max-width:760px){.biomed-identity-grid{grid-template-columns:1fr;margin-top:25px}.biomed-identity-item,.biomed-identity-item+article{padding:30px 0}.biomed-identity-item+article{border-left:0;border-top:1px solid #718daa35}.biomed-logo-display,.biomed-slogan-display{min-height:170px;padding:28px 0}.biomed-identity-symbol{width:78px;height:78px}.biomed-identity-wordmark{font-size:clamp(2.7rem,11vw,3.8rem)}.biomed-slogan-display p{font-size:clamp(1.8rem,7vw,2.4rem)!important}.biomed-identity-item>p{font-size:1rem}.biomed-identity-item>.biomed-identity-caption{font-size:.62rem}.biomed-identity-label h3{font-size:1.15rem}}
+
+body[data-page="index"] .hero-copy h1{font-size:clamp(44px,5.1vw,74px);max-width:850px;line-height:1.12}
+.dashboard-date{font-size:clamp(1.6rem,2.6vw,2.7rem)!important}
+@media(max-width:760px){body[data-page="index"] .hero-copy h1{font-size:clamp(37px,9.4vw,55px);max-width:100%}body[data-page="index"] .hero-copy .eyebrow{line-height:1.8}.page-hero .eyebrow{line-height:1.8}}
