@@ -307,3 +307,14 @@ main>*{min-width:0}.card,.scope-grid>div,.case-grid>article,.finding>div,.sectio
 body[data-page="index"] .hero-copy h1{font-size:clamp(44px,5.1vw,74px);max-width:850px;line-height:1.12}
 .dashboard-date{font-size:clamp(1.6rem,2.6vw,2.7rem)!important}
 @media(max-width:760px){body[data-page="index"] .hero-copy h1{font-size:clamp(37px,9.4vw,55px);max-width:100%}body[data-page="index"] .hero-copy .eyebrow{line-height:1.8}.page-hero .eyebrow{line-height:1.8}}
+
+body[data-page="propuestas"]{--label-accent:#8bebce;--label-rgb:139,235,206}
+.proposal-section{padding-top:0}.proposal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.proposal-card{padding:36px;border:1px solid #8bebce38;border-radius:20px;background:linear-gradient(145deg,#102332a6,#0b1323);min-width:0}
+.proposal-top{display:flex;align-items:center;gap:18px;margin-bottom:25px}.proposal-top .eyebrow{margin:0;font-size:.7rem}.proposal-number{font:500 2.5rem/1 var(--display);color:#8bebce80;letter-spacing:-.06em}
+.proposal-card h3{font-size:clamp(25px,2.5vw,34px);margin-bottom:28px;max-width:20ch}
+.proposal-details{margin:0}.proposal-details>div{margin:0 0 24px}.proposal-details dt{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#89b8c8;margin-bottom:9px}.proposal-details dd{margin:0;color:var(--muted);font-size:15px;line-height:1.85}.proposal-action{border-left:2px solid #8bebce;padding-left:17px}.proposal-action dt{color:#8bebce}.proposal-action dd{color:#dbe9f2}
+.proposal-evaluation{border-top:1px solid var(--line);padding-top:22px}.proposal-evaluation p{font-size:13px;line-height:1.8;color:#98aac0;margin:0 0 15px}.proposal-evaluation p:last-child{margin:0}.proposal-evaluation strong{display:block;color:#cadbea;font-size:12px;font-weight:500;margin-bottom:5px}
+.proposal-scenes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.proposal-scenes figure{margin:0;min-width:0}.proposal-scenes img{width:100%;aspect-ratio:1.5;object-fit:cover;border-radius:18px;border:1px solid var(--line)}.proposal-scenes figcaption{padding:28px 4px 0}.proposal-scenes h3{font-size:30px;margin:16px 0}.proposal-scenes p{color:var(--muted);font-size:15px;margin-bottom:15px}.proposal-scenes small{font-size:10px;color:#8495ad}.proposal-next{background:linear-gradient(110deg,#122b3a,#141b32);border-color:#8bebce40}
+@media(min-width:901px) and (max-width:1150px){.site-nav{gap:12px}.site-nav a{font-size:10px}.header-inner{gap:18px}}
+@media(max-width:760px){.proposal-grid,.proposal-scenes{grid-template-columns:minmax(0,1fr)}.proposal-card{padding:26px 23px}.proposal-grid{gap:18px}.proposal-details dd{font-size:16px}.proposal-card h3{font-size:28px}.proposal-evaluation p{font-size:14px}.proposal-scenes{gap:40px}.proposal-scenes h3{font-size:28px}.proposal-scenes p{font-size:16px}.proposal-scenes figcaption{padding-top:24px}}
