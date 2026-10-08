@@ -12,3 +12,6 @@ Cajas compactas con bordes de color, imágenes conceptuales únicas en encabezad
 
 ## Desarrollo
 HTML, CSS y JavaScript sin dependencias de ejecución. Publicación mediante GitHub Pages.
+
+## Diseño editorial
+Imágenes integradas junto a su explicación, alternancia de columnas, conceptos con separadores, propuestas numeradas y panel de datos. Se preserva la información, la navegación y la concentración de referencias en Marco teórico. Diseño responsive con CSS independiente.
