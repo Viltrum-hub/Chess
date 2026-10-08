@@ -8,7 +8,7 @@ Se adapta el marco teórico proporcionado sobre España. Fuente: Moreno Vida, M.
 Las citas y la referencia bibliográfica se concentran en Marco teórico, con localizadores de los datos del sitio. La definición de la OCDE se presenta como cita secundaria. El panel muestra 14 nuevos centros designados y períodos de planes recogidos en la fuente; no representa una verificación actual de su ejecución ni resultados clínicos propios. Las propuestas son recomendaciones derivadas de los retos descritos, no intervenciones ejecutadas.
 
 ## Presentación
-Cajas compactas con bordes de color, imágenes conceptuales únicas en encabezados y capítulos, partículas y navegación responsive. Logo y eslogan conservados. Texto breve con conceptos explicados en lenguaje sencillo.
+Cajas compactas con bordes de color, imágenes conceptuales únicas en encabezados, una franja de contenido por página y cierres de capítulo, partículas y navegación responsive. Logo y eslogan conservados. Texto breve con conceptos explicados en lenguaje sencillo.
 
 ## Desarrollo
 HTML, CSS y JavaScript sin dependencias de ejecución. Publicación mediante GitHub Pages.
