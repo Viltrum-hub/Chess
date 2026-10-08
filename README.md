@@ -1,21 +1,14 @@
-# Biomed — Biotecnología médica en Estados Unidos
+# Biomed — Biotecnología aplicada a la salud en España
 
-Sitio informativo estático en español con seis páginas independientes: Inicio, Nosotros, Marco teórico, Resultados, Impactos y Propuestas de cambio.
+Sitio estático con seis páginas independientes: Inicio, Nosotros, Marco teórico, Resultados, Impactos y Propuestas de cambio.
 
-## Alcance
-El contenido médico y regulatorio se centra en Estados Unidos y en el caso Casgevy publicado por la FDA el 8 de diciembre de 2023. Los antecedentes de 2008 y 2020 aportan conceptos generales, no estadísticas estadounidenses. No se presentan mediciones propias ni un panorama completo o actualizado de toda la biotecnología del país.
+## Contenido y delimitación
+Se adapta el marco teórico proporcionado sobre España. Fuente: Moreno Vida, M. N. (2024). Impacto de la medicina 4.0 en el sistema de salud. Revista de Derecho de la Seguridad Social. Laborum, (Número extraordinario 6), 345–375. https://revista.laborum.es/index.php/revsegsoc/es/article/view/916
 
-## Resultados
-Dashboard con tres vistas: contexto estadounidense, resultados clínicos y lectura de datos. Se distinguen la estimación nacional de la enfermedad, los pacientes tratados y los evaluables del ensayo. Cada vista incluye fuente y límites de interpretación. Compatible con ratón, toque y teclado; las vistas permanecen disponibles sin JavaScript.
+Las citas señalan páginas del artículo y enlazan a la referencia bibliográfica de cada página. La definición de la OCDE se presenta como cita secundaria. El panel muestra 14 nuevos centros designados y períodos de planes recogidos en la fuente; no representa una verificación actual de su ejecución ni resultados clínicos propios. Las propuestas son recomendaciones derivadas de los retos descritos, no intervenciones ejecutadas.
 
-## Diseño y accesibilidad
-Eslogan destacado en el encabezado de Inicio. Identidad explicada en Nosotros. Diseño oscuro con acentos cian y violeta, imágenes conceptuales responsivas, partículas decorativas que respetan movimiento reducido, menú móvil, foco visible y acordeones nativos. Las ilustraciones no representan instalaciones reales ni evidencia experimental.
+## Presentación
+Cajas con bordes de color, imágenes conceptuales, partículas y navegación responsive. Logo y eslogan conservados. Texto breve con conceptos explicados en lenguaje sencillo.
 
-## Ejecución
-Sin compilación ni dependencias de ejecución. Abrir index.html o servir la carpeta mediante un servidor estático. GitHub Pages publica main desde la raíz. Rutas relativas bajo /biotecnologia/.
-
-## Propuestas de cambio
-Cuatro recomendaciones para el contexto estadounidense: acceso, seguimiento prolongado, información comprensible y calidad de datos. Cada una distingue problema, acción, beneficio esperado, actores sugeridos y evaluación. No se presentan como acciones ejecutadas. La página incorpora tres ilustraciones conceptuales exclusivas.
-
-## Presentación resumida
-Información organizada en cajas con bordes de color. Se retira la página de Referencias y su navegación. El dashboard conserva un enlace breve a la publicación de la FDA para identificar el origen de las cifras.
+## Desarrollo
+HTML, CSS y JavaScript sin dependencias de ejecución. Publicación mediante GitHub Pages.
