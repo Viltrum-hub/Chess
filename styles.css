@@ -318,3 +318,16 @@ body[data-page="propuestas"]{--label-accent:#8bebce;--label-rgb:139,235,206}
 .proposal-scenes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.proposal-scenes figure{margin:0;min-width:0}.proposal-scenes img{width:100%;aspect-ratio:1.5;object-fit:cover;border-radius:18px;border:1px solid var(--line)}.proposal-scenes figcaption{padding:28px 4px 0}.proposal-scenes h3{font-size:30px;margin:16px 0}.proposal-scenes p{color:var(--muted);font-size:15px;margin-bottom:15px}.proposal-scenes small{font-size:10px;color:#8495ad}.proposal-next{background:linear-gradient(110deg,#122b3a,#141b32);border-color:#8bebce40}
 @media(min-width:901px) and (max-width:1150px){.site-nav{gap:12px}.site-nav a{font-size:10px}.header-inner{gap:18px}}
 @media(max-width:760px){.proposal-grid,.proposal-scenes{grid-template-columns:minmax(0,1fr)}.proposal-card{padding:26px 23px}.proposal-grid{gap:18px}.proposal-details dd{font-size:16px}.proposal-card h3{font-size:28px}.proposal-evaluation p{font-size:14px}.proposal-scenes{gap:40px}.proposal-scenes h3{font-size:28px}.proposal-scenes p{font-size:16px}.proposal-scenes figcaption{padding-top:24px}}
+
+.clean-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.clean-box{position:relative;min-width:0;padding:30px;border:1px solid rgba(var(--label-rgb),.38);border-radius:18px;background:linear-gradient(145deg,rgba(var(--label-rgb),.055),#0c1525);overflow:hidden}
+.clean-box::before{content:'';position:absolute;top:0;left:25px;right:25px;height:2px;background:linear-gradient(90deg,var(--label-accent),transparent)}
+.clean-label{display:inline-block;margin-bottom:20px;padding:7px 10px;border:1px solid rgba(var(--label-rgb),.3);border-radius:7px;color:var(--label-accent);font-size:10px;letter-spacing:.09em;line-height:1.5}
+.clean-box h3{font-size:27px;margin-bottom:15px}.clean-box p{font-size:16px;line-height:1.8;color:var(--muted);margin:0}.clean-prose p{font-size:16px;line-height:1.85;margin:0}
+.biomed-identity-grid{gap:22px;border:0}.biomed-identity-item,.biomed-identity-item+.biomed-identity-item{padding:30px;border:1px solid #b7a3ff50;border-radius:18px;background:linear-gradient(145deg,#b7a3ff09,#0c1525)}
+.biomed-identity-item>p:not(.biomed-identity-caption){margin-bottom:0}.biomed-logo-display,.biomed-slogan-display{min-height:180px}
+.proposal-card{padding:30px;border-color:#8bebce60}.proposal-card h3{font-size:29px;margin-bottom:24px}.proposal-details>div{margin-bottom:20px}.proposal-details>div:last-child{margin-bottom:0}
+body .section{padding-block:72px}.reading-body>section{margin-bottom:55px}.reading-body>section:last-child{margin-bottom:0}.dashboard-context{margin-top:18px}.dashboard-source{padding-top:14px;margin-top:18px}
+@media(max-width:760px){.clean-grid{grid-template-columns:minmax(0,1fr);gap:16px}.clean-box{padding:24px}.clean-box h3{font-size:25px}.biomed-identity-item,.biomed-identity-item+.biomed-identity-item{padding:25px}.proposal-card{padding:25px 23px}.proposal-card h3{font-size:27px}body .section{padding-block:48px}.reading-body>section{margin-bottom:38px}}
+
+.clean-three{grid-template-columns:repeat(3,minmax(0,1fr))}.clean-box-image{width:100%;height:auto;aspect-ratio:1.5;object-fit:cover;border-radius:10px;margin-bottom:23px}@media(max-width:900px){.clean-three{grid-template-columns:1fr}}
