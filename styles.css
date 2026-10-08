@@ -283,3 +283,23 @@ main>*{min-width:0}.card,.scope-grid>div,.case-grid>article,.finding>div,.sectio
 .regulatory-timeline time{font-family:'Space Grotesk',sans-serif;display:block}
 @media(max-width:1000px){.dashboard-panel-head{align-items:flex-start;flex-direction:column;gap:8px}.dashboard-panel-head>span{text-align:left}.dashboard-coverage{gap:25px}.dashboard-metric{padding:18px}.dashboard-tabs button{padding:12px;font-size:.8rem}.dashboard-tabs button span{display:none}}
 @media(max-width:760px){.dashboard-heading{flex-direction:column;align-items:flex-start;gap:20px}.dashboard-period{padding:11px 15px}.dashboard-period strong{display:inline;margin-left:12px;font-size:1rem}.dashboard-tabs{flex-direction:column;gap:6px}.dashboard-tabs button{font-size:.9rem;padding:13px 15px;min-height:48px}.dashboard-tabs button span{display:inline}.dashboard-panel{padding:22px 18px;border-radius:16px}.dashboard-metrics{grid-template-columns:1fr;gap:12px;margin-bottom:22px}.dashboard-metric>strong{font-size:2.65rem}.dashboard-metric{padding:18px}.dashboard-metric>p{margin-bottom:8px}.dashboard-metric>small{margin-top:8px}.dashboard-chart{padding:20px 16px}.dashboard-coverage,.dashboard-clinical{grid-template-columns:1fr;gap:25px}.dashboard-coverage-copy h4,.dashboard-clinical-copy h4{font-size:1.5rem}.dashboard-context{font-size:.85rem}.dashboard-ring{width:205px}.dashboard-patients{padding:20px}.dashboard-panel-head>span{font-size:.6rem;letter-spacing:.08em}.dashboard-source{font-size:.79rem}}
+
+.biomed-identity-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #718daa35;border-bottom:1px solid #718daa35;margin-top:38px}
+.biomed-identity-item{padding:38px 42px 38px 0;min-width:0}
+.biomed-identity-item+article{padding:38px 0 38px 42px;border-left:1px solid #718daa35}
+.biomed-identity-label{display:flex;align-items:center;gap:14px}
+.biomed-identity-label>span{color:#8fdde6;font:500 .72rem 'Space Grotesk',sans-serif;letter-spacing:.1em}
+.biomed-identity-label h3{font:500 1.1rem 'Space Grotesk',sans-serif;color:#e0eaf7;margin:0}
+.biomed-logo-display{display:flex;align-items:center;gap:24px;min-height:210px;padding:34px 0}
+.biomed-identity-symbol{flex-shrink:0;width:92px;height:92px;border:1px solid #54e1ec38;border-radius:20px;background:#54e1ec06;padding:15px;fill:none;stroke:#54e1ec;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.biomed-identity-wordmark{font:600 clamp(2.8rem,4.4vw,4.9rem)/1 'Space Grotesk',sans-serif;color:#edf4ff;letter-spacing:-.06em}
+.biomed-identity-wordmark>span{color:#54e1ec}
+.biomed-slogan-display{margin:0;min-height:210px;display:flex;align-items:center;padding:34px 0;border:0;background:none}
+.biomed-slogan-display p{margin:0!important;font:500 clamp(1.65rem,2.9vw,2.9rem)/1.3 'Space Grotesk',sans-serif!important;letter-spacing:-.035em;color:#edf4ff!important;max-width:20ch}
+.biomed-slogan-display em{color:#54e1ec;font-style:normal}
+.biomed-identity-item>.biomed-identity-caption{font-size:.64rem;letter-spacing:.13em;color:#829bb7;margin:0 0 20px;line-height:1.7}
+.biomed-identity-item>p{font-size:.95rem;line-height:1.9;color:#a7bad0;margin:0 0 16px;max-width:52ch}
+.biomed-identity-item>p strong{color:#d3e2f4;font-weight:500}
+.biomed-identity-item>p:last-child{margin-bottom:0}
+@media(max-width:1000px){.biomed-identity-item{padding-right:26px}.biomed-identity-item+article{padding-left:26px}.biomed-logo-display{gap:16px}.biomed-identity-symbol{width:75px;height:75px;border-radius:16px;padding:12px}.biomed-identity-wordmark{font-size:3rem}.biomed-slogan-display p{font-size:2rem!important}}
+@media(max-width:760px){.biomed-identity-grid{grid-template-columns:1fr;margin-top:25px}.biomed-identity-item,.biomed-identity-item+article{padding:30px 0}.biomed-identity-item+article{border-left:0;border-top:1px solid #718daa35}.biomed-logo-display,.biomed-slogan-display{min-height:170px;padding:28px 0}.biomed-identity-symbol{width:78px;height:78px}.biomed-identity-wordmark{font-size:clamp(2.7rem,11vw,3.8rem)}.biomed-slogan-display p{font-size:clamp(1.8rem,7vw,2.4rem)!important}.biomed-identity-item>p{font-size:1rem}.biomed-identity-item>.biomed-identity-caption{font-size:.62rem}.biomed-identity-label h3{font-size:1.15rem}}
